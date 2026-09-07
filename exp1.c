@@ -1,3 +1,5 @@
+// Aim: To implement Merge Sort, Quick Sort, Bubble Sort, Selection Sort and Heap Sort using array as a data structure and analyse their time complexity.
+
 #include <stdio.h>
 
 void merge(int arr[], int l, int r, int m) {
@@ -97,6 +99,54 @@ void selectionSort(int arr[], int len) {
     }
 }
 
+void bubbleSort(int arr[], int len) {
+    for(int i = 0; i < len - 1; i++) {
+        for(int j = 0; j < len - i - 1; j++) {
+            if(arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void heapify(int arr[], int len, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if(left < len && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if(right < len && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if(largest != i) {
+        int temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+
+        heapify(arr, len, largest);
+    }
+}
+
+void heapSort(int arr[], int len) {
+    for(int i = len / 2 - 1; i >= 0; i--) {
+        heapify(arr, len, i);
+    }
+
+    for(int i = len - 1; i > 0; i--) {
+        int temp = arr[0];
+        arr[0] = arr[i];
+        arr[i] = temp;
+
+        heapify(arr, i, 0);
+    }
+}
+
 void printArr(int arr[], int len) {
     for(int i = 0; i < len; i++) {
         printf("%d ", arr[i]);
@@ -145,4 +195,34 @@ int main() {
 
     printf("Sorted Array - ");
     printArr(arr3, len3);
+
+
+
+    int arr4[] = {64, 34, 25, 12, 22, 11, 90};
+    int len4 = sizeof(arr4) / sizeof(arr4[0]);
+
+    printf("\n----- Bubble Sort -----\n");
+    printf("Original Array - ");
+    printArr(arr4, len4);
+
+    bubbleSort(arr4, len4);
+
+    printf("Sorted Array - ");
+    printArr(arr4, len4);
+
+
+
+    int arr5[] = {12, 11, 13, 5, 6, 7};
+    int len5 = sizeof(arr5) / sizeof(arr5[0]);
+
+    printf("\n----- Heap Sort -----\n");
+    printf("Original Array - ");
+    printArr(arr5, len5);
+
+    heapSort(arr5, len5);
+
+    printf("Sorted Array - ");
+    printArr(arr5, len5);
+
+    return 0;
 }
