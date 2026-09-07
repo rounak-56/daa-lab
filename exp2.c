@@ -1,3 +1,5 @@
+// Aim: To implement Linear Search and Binary Search algorithms in C++ and compare their searching techniques and time complexities.
+
 #include <stdio.h>
 
 int sequentialSearch(int arr[], int len, int target) {
